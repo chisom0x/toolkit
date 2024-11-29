@@ -1,4 +1,4 @@
-import imageCompressorModel from '../../models/image_tools/image_compressor_model';
+import imageCompressorModel from '../models/image_compressor_model';
 import { v4 as uuid } from 'uuid';
 const sessionId = uuid();
 
@@ -11,7 +11,7 @@ export default class imageCompressorService {
         text: text,
         sessionId: sessionId,
       });
-      return imageLink
+      return imageLink;
     } catch (error) {
       throw error;
     }
@@ -19,7 +19,9 @@ export default class imageCompressorService {
 
   static async getImageLink(sessionId: string) {
     try {
-      const imageLink = await imageCompressorModel.findOne({ sessionId: sessionId });
+      const imageLink = await imageCompressorModel.findOne({
+        sessionId: sessionId,
+      });
       if (!imageLink) return null;
       return imageLink;
     } catch (error) {

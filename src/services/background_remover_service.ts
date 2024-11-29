@@ -1,13 +1,12 @@
-import qrCodeModel from '../../models/image_tools/qr_code_model';
-import statsModel from '../../models/stats_model';
+import backgroundRemoverModel from '../models/background_remover_model';
 import { v4 as uuid } from 'uuid';
 const sessionId = uuid();
 
-export default class imageToolsService {
+export default class backgroundRemoverService {
   static async uploadImageLink(link: string) {
     try {
-      await qrCodeModel.deleteMany({ sessionId });
-      const imageLink = await qrCodeModel.create({
+      await backgroundRemoverModel.deleteMany({ sessionId });
+      const imageLink = await backgroundRemoverModel.create({
         file_link: link,
         sessionId: sessionId,
       });
@@ -17,9 +16,11 @@ export default class imageToolsService {
     }
   }
 
-  static async getQrCode(sessionId: string) {
+  static async getImage(sessionId: string) {
     try {
-      const qrCode = await qrCodeModel.findOne({ sessionId: sessionId });
+      const qrCode = await backgroundRemoverModel.findOne({
+        sessionId: sessionId,
+      });
       if (!qrCode) return null;
       return qrCode;
     } catch (error) {
@@ -29,7 +30,7 @@ export default class imageToolsService {
 
   static async deleteImageLink(id: string) {
     try {
-      await qrCodeModel.deleteOne({ _id: id });
+      await backgroundRemoverModel.deleteOne({ _id: id });
       return null;
     } catch (error) {
       throw error;

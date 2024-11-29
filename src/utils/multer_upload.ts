@@ -6,15 +6,19 @@ const storage = multer.memoryStorage();
 
 const uploadImage = multer({
   storage: storage,
-  fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+  fileFilter: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: FileFilterCallback
+  ) => {
     const ext = path.extname(file.originalname).toLowerCase();
 
     if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
       return cb(new Error('Only image files are allowed'));
     }
-    
+
     cb(null, true);
   },
 });
 
-export default uploadImage;
+export { uploadImage };

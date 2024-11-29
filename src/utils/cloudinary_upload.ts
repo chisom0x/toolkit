@@ -1,7 +1,10 @@
-import cloudinary from '../config/cloudinary_config'; 
+import cloudinary from '../config/cloudinary_config';
+import stream from 'stream';
 import { Readable } from 'stream';
 
-export const uploadPhotoBufferToCloudinary = async (buffer: Buffer): Promise<string> => {
+export const uploadPhotoBufferToCloudinary = async (
+  buffer: Buffer
+): Promise<string> => {
   try {
     return new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
@@ -25,7 +28,9 @@ export const uploadPhotoBufferToCloudinary = async (buffer: Buffer): Promise<str
   }
 };
 
-export const uploadAudioBufferToCloudinary = async (buffer: Buffer): Promise<string> => {
+export const uploadAudioBufferToCloudinary = async (
+  buffer: Buffer
+): Promise<string> => {
   try {
     return new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(

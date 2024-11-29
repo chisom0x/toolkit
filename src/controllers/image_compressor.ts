@@ -1,7 +1,7 @@
-import imageCompressorService from '../../services/image_tools/image_compressor';
-import { successResponse } from '../../utils/response';
-import AppError from '../../utils/app_error';
-import { uploadPhotoBufferToCloudinary } from '../../utils/cloudinary_upload';
+import imageCompressorService from '../services/image_compressor';
+import { successResponse } from '../utils/response';
+import AppError from '../utils/app_error';
+import { uploadPhotoBufferToCloudinary } from '../utils/cloudinary_upload';
 import { Request, Response, NextFunction } from 'express';
 import sharp from 'sharp';
 
@@ -9,6 +9,7 @@ export default class imageCompressorController {
   static async compressImage(req: Request, res: Response, next: NextFunction) {
     try {
       const file = req.file;
+      console.log(file?.path);
       if (!file) {
         return next(new AppError('Please provide an image!', 400));
       }

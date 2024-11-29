@@ -1,14 +1,13 @@
-import imageToolsService from '../../services/image_tools/qr_code_service';
-import genQr from '../../utils/qr_code_generator';
-import { successResponse } from '../../utils/response';
-import AppError from '../../utils/app_error';
-import { uploadPhotoBufferToCloudinary } from '../../utils/cloudinary_upload';
+import qrCodeService from '../services/qr_code_service';
+import genQr from '../utils/qr_code_generator';
+import { successResponse } from '../utils/response';
+import AppError from '../utils/app_error';
+import { uploadPhotoBufferToCloudinary } from '../utils/cloudinary_upload';
 import { Request, Response, NextFunction } from 'express';
 
-export default class imageToolsController {
+export default class qrCodeController {
   static async generateQrCode(req: Request, res: Response, next: NextFunction) {
     try {
-      //session id will be stored on the frontend as cookies
       const { url } = req.body;
       if (!url) return next(new AppError('Please provide a URL!', 400));
 
@@ -19,9 +18,8 @@ export default class imageToolsController {
       if (!qrCodeUrl)
         return next(new AppError('failed to upload QR Code!', 500));
 
-      const uploadedQr = await imageToolsService.uploadImageLink(
-        qrCodeUrl,
-      );
+      const uploadedQr = await qrCodeService.uploadImageLink(qrCodeUrl);
+
       return successResponse(res, {
         file: qrCodeUrl,
         text: 'your file is ready',
@@ -35,11 +33,10 @@ export default class imageToolsController {
 
   static async getQrCode(req: Request, res: Response, next: NextFunction) {
     try {
-      // session id will be gotten from the cookies saved on the frontend
       const { sessionId } = req.body;
 
       const session = sessionId || null;
-      const qrCode = await imageToolsService.getQrCode(session);
+      const qrCode = await qrCodeService.getQrCode(session);
 
       if (session === null || qrCode === null) {
         return successResponse(res, {
@@ -64,7 +61,7 @@ export default class imageToolsController {
   static async deleteQrCode(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
-      await imageToolsService.deleteImageLink(id);
+      await qrCodeService.deleteImageLink(id);
       return successResponse(res, null);
     } catch (error) {
       return next(error);
