@@ -7,7 +7,7 @@ require("dotenv/config");
 const app_1 = require("./app");
 const mongoose_1 = __importDefault(require("mongoose"));
 const DB = process.env.DB;
-mongoose_1.default.connect('mongodb://0.0.0.0:27017/toolkit')
+mongoose_1.default.connect(DB)
     .then(() => {
     console.log('MongoDB Connected!');
 })
