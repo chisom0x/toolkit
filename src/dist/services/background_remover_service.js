@@ -19,7 +19,6 @@ class backgroundRemoverService {
     static uploadImageLink(link) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield background_remover_model_1.default.deleteMany({ sessionId });
                 const imageLink = yield background_remover_model_1.default.create({
                     file_link: link,
                     sessionId: sessionId,

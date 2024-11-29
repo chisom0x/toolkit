@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const qr_code_service_1 = __importDefault(require("../services/qr_code_service"));
 const qr_code_generator_1 = __importDefault(require("../utils/qr_code_generator"));
 const response_1 = require("../utils/response");
-const session_manager_1 = require("../utils/session_manager");
 const app_error_1 = __importDefault(require("../utils/app_error"));
 const cloudinary_upload_1 = require("../utils/cloudinary_upload");
 class qrCodeController {
@@ -32,7 +31,6 @@ class qrCodeController {
                 if (!qrCodeUrl)
                     return next(new app_error_1.default('failed to upload QR Code!', 500));
                 const uploadedQr = yield qr_code_service_1.default.uploadImageLink(qrCodeUrl);
-                (0, session_manager_1.setAuthHeader)(req, uploadedQr.sessionId);
                 return (0, response_1.successResponse)(res, {
                     file: qrCodeUrl,
                     text: 'your file is ready',
@@ -48,10 +46,10 @@ class qrCodeController {
     static getQrCode(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const sessionId = (0, session_manager_1.getAuthHeader)(req);
-                const session = sessionId || undefined;
+                const { sessionId } = req.body;
+                const session = sessionId || null;
                 const qrCode = yield qr_code_service_1.default.getQrCode(session);
-                if (session === undefined || qrCode === null) {
+                if (session === null || qrCode === null) {
                     return (0, response_1.successResponse)(res, {
                         file: null,
                         text: null,

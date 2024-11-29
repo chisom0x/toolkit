@@ -26,7 +26,7 @@ class backgroundRemoverController {
                     return next(new app_error_1.default('Please provide an image!', 400));
                 }
                 const result = yield (0, remove_bg_1.removeBackgroundFromImageBase64)({
-                    apiKey: 'cxE7vGBGtu6hjYaXEu5hWauA',
+                    apiKey: process.env.REMOVEBG_API_KEY,
                     base64img: file.buffer.toString('base64'),
                     size: 'auto',
                     type: 'auto',

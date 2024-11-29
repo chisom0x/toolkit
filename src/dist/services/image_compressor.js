@@ -19,7 +19,6 @@ class imageCompressorService {
     static uploadImageLink(link, text) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield image_compressor_model_1.default.deleteMany({ sessionId });
                 const imageLink = yield image_compressor_model_1.default.create({
                     file_link: link,
                     text: text,

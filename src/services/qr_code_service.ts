@@ -5,7 +5,6 @@ const sessionId = uuid();
 export default class qrCodeService {
   static async uploadImageLink(link: string) {
     try {
-      await qrCodeModel.deleteMany({ sessionId });
       const imageLink = await qrCodeModel.create({
         file_link: link,
         sessionId: sessionId,

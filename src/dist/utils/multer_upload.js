@@ -14,7 +14,6 @@ const uploadImage = (0, multer_1.default)({
         if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
             return cb(new Error('Only image files are allowed'));
         }
-        console.log(file);
         cb(null, true);
     },
 });

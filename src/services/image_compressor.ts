@@ -5,7 +5,6 @@ const sessionId = uuid();
 export default class imageCompressorService {
   static async uploadImageLink(link: string, text: String) {
     try {
-      await imageCompressorModel.deleteMany({ sessionId });
       const imageLink = await imageCompressorModel.create({
         file_link: link,
         text: text,

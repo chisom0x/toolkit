@@ -19,7 +19,6 @@ class qrCodeService {
     static uploadImageLink(link) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield qr_code_model_1.default.deleteMany({ sessionId });
                 const imageLink = yield qr_code_model_1.default.create({
                     file_link: link,
                     sessionId: sessionId,

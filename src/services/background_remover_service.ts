@@ -5,7 +5,6 @@ const sessionId = uuid();
 export default class backgroundRemoverService {
   static async uploadImageLink(link: string) {
     try {
-      await backgroundRemoverModel.deleteMany({ sessionId });
       const imageLink = await backgroundRemoverModel.create({
         file_link: link,
         sessionId: sessionId,
