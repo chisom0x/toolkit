@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const DB = process.env.DB
 
-mongoose.connect('mongodb://0.0.0.0:27017/toolkit')
+mongoose.connect(DB as string)
 .then(()=>{
     console.log('MongoDB Connected!')
 })
